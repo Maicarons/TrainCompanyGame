@@ -1,0 +1,143 @@
+/* 通知系统样式 */
+
+.notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 300px;
+    max-width: 80%;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.notification {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    margin-bottom: 10px;
+    transform: translateX(120%);
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.notification.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.notification::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 5px;
+}
+
+.notification-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.notification-message {
+    font-size: 14px;
+    color: #555;
+}
+
+/* 成功通知 */
+.notification-success::before {
+    background-color: #2ecc71;
+}
+
+.notification-success .notification-title {
+    color: #27ae60;
+}
+
+/* 错误通知 */
+.notification-error::before {
+    background-color: #e74c3c;
+}
+
+.notification-error .notification-title {
+    color: #c0392b;
+}
+
+/* 信息通知 */
+.notification-info::before {
+    background-color: #3498db;
+}
+
+.notification-info .notification-title {
+    color: #2980b9;
+}
+
+/* 警告通知 */
+.notification-warning::before {
+    background-color: #f39c12;
+}
+
+.notification-warning .notification-title {
+    color: #d35400;
+}
+
+/* 关闭按钮 */
+.notification-close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #999;
+}
+
+.notification-close:hover {
+    color: #333;
+}
+
+/* 进度条 */
+.notification-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.notification-progress-bar {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    transform-origin: left;
+    animation: progress 3s linear forwards;
+}
+
+@keyframes progress {
+    from { transform: scaleX(1); }
+    to { transform: scaleX(0); }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .notification-container {
+        width: 250px;
+    }
+    
+    .notification {
+        padding: 10px;
+    }
+    
+    .notification-title {
+        font-size: 14px;
+    }
+    
+    .notification-message {
+        font-size: 12px;
+    }
+}

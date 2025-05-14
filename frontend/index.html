@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>铁路大亨模拟器</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/notifications.css">
+    <!-- 引入字体图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">铁路大亨模拟器</div>
+            <nav>
+                <ul>
+                    <li><a href="#" id="new-game-btn">新游戏</a></li>
+                    <li><a href="#" id="load-game-btn">加载游戏</a></li>
+                    <li><a href="#" id="save-game-btn">保存游戏</a></li>
+                    <li><a href="#" id="settings-btn">设置</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- 游戏界面 -->
+        <div class="game-interface">
+            <!-- 侧边栏：公司信息、财务数据等 -->
+            <div class="sidebar">
+                <div class="card">
+                    <div class="card-title">公司信息</div>
+                    <div id="company-info">
+                        <p>请创建或选择一个公司</p>
+                    </div>
+                    <button class="btn" id="create-company-btn">创建公司</button>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">财务状况</div>
+                    <div id="financial-info">
+                        <p>现金: <span id="cash-value">0</span></p>
+                        <p>资产: <span id="assets-value">0</span></p>
+                        <p>负债: <span id="debt-value">0</span></p>
+                        <p>净值: <span id="net-worth-value">0</span></p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">市场信息</div>
+                    <div id="market-info">
+                        <p>加载市场数据中...</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 游戏控制面板 -->
+            <div class="game-controls">
+                <div class="time-controls">
+                    <button class="btn" id="pause-btn"><i class="fas fa-pause"></i></button>
+                    <button class="btn" id="play-btn"><i class="fas fa-play"></i></button>
+                    <button class="btn" id="fast-forward-btn"><i class="fas fa-forward"></i></button>
+                    <span id="game-date">1950-01-01</span>
+                </div>
+                
+                <div class="game-stats">
+                    <span>难度: <span id="difficulty-level">普通</span></span>
+                    <span>经济指数: <span id="economy-index">100</span></span>
+                </div>
+            </div>
+            
+            <!-- 游戏地图区域 -->
+            <div class="game-map" id="game-map">
+                <div class="map-controls">
+                    <button class="btn" id="zoom-in-btn"><i class="fas fa-plus"></i></button>
+                    <button class="btn" id="zoom-out-btn"><i class="fas fa-minus"></i></button>
+                    <button class="btn" id="center-map-btn"><i class="fas fa-crosshairs"></i></button>
+                </div>
+                <div id="map-container">
+                    <!-- 地图将通过JavaScript渲染 -->
+                    <div class="map-loading">加载地图中...</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 模态框 -->
+        <div class="modal" id="create-company-modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>创建新公司</h2>
+                <form id="create-company-form">
+                    <div class="form-group">
+                        <label for="company-name">公司名称</label>
+                        <input type="text" id="company-name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="company-type">公司类型</label>
+                        <select id="company-type" class="form-control" required>
+                            <option value="RAILWAY">铁路公司</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="initial-cash">初始资金</label>
+                        <input type="number" id="initial-cash" class="form-control" value="1000000" required>
+                    </div>
+                    <button type="submit" class="btn">创建</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="modal" id="new-game-modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>创建新游戏</h2>
+                <form id="new-game-form">
+                    <div class="form-group">
+                        <label for="world-width">世界宽度</label>
+                        <input type="number" id="world-width" class="form-control" value="200" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="world-height">世界高度</label>
+                        <input type="number" id="world-height" class="form-control" value="200" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="num-cities">城市数量</label>
+                        <input type="number" id="num-cities" class="form-control" value="20" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="difficulty">难度</label>
+                        <select id="difficulty" class="form-control" required>
+                            <option value="easy">简单</option>
+                            <option value="normal" selected>普通</option>
+                            <option value="hard">困难</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn">开始游戏</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- 游戏脚本 -->
+    <script src="/static/js/websocket.js"></script>
+    <script src="/static/js/game_ui.js"></script>
+    <script src="/static/js/map_renderer.js"></script>
+    <script src="/static/js/company_manager.js"></script>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
