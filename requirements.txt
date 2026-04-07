@@ -12,7 +12,7 @@ passlib==1.7.4
 python-jose==3.4.0
 python-multipart==0.0.22
 requests==2.33.0
-aiohttp==3.13.3
+aiohttp==3.13.4
 numpy==1.26.1
 pandas==2.1.2
 matplotlib==3.8.1
