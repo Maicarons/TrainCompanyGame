@@ -5,7 +5,7 @@ celery==5.3.4
 redis==5.0.1
 mysql-connector-python==9.1.0
 pydantic==2.4.2
-python-dotenv==1.0.0
+python-dotenv==1.2.2
 SQLAlchemy==2.0.23
 alembic==1.12.1
 passlib==1.7.4
