@@ -10,7 +10,7 @@ SQLAlchemy==2.0.23
 alembic==1.12.1
 passlib==1.7.4
 python-jose==3.4.0
-python-multipart==0.0.27
+python-multipart==0.0.31
 requests==2.33.0
 aiohttp==3.14.0
 numpy==1.26.1
